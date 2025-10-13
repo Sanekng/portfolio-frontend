@@ -1,24 +1,43 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+import { AuthProvider } from './contexts/AuthContext';
 import { Layout } from './components/ui/Layout';
 import { Home } from './pages/Home';
 import { Projects } from './pages/Projects';
 import { Blog } from './pages/Blog';
 import { About } from './pages/About';
 import { Contact } from './pages/Contact';
+import { Login } from './pages/admin/Login';
+import { Dashboard } from './pages/admin/Dashboard';
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 function App() {
   return (
-    <Router>
-      <Layout>
+    <AuthProvider>
+      <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/blog" element={<Blog />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/contact" element={<Contact />} />
+          {/* Public routes */}
+          <Route path="/" element={<Layout><Home /></Layout>} />
+          <Route path="/projects" element={<Layout><Projects /></Layout>} />
+          <Route path="/blog" element={<Layout><Blog /></Layout>} />
+          <Route path="/about" element={<Layout><About /></Layout>} />
+          <Route path="/contact" element={<Layout><Contact /></Layout>} />
+          
+          {/* Admin routes */}
+          <Route path="/admin/login" element={<Login />} />
+          <Route 
+            path="/admin/dashboard" 
+            element={
+              <ProtectedRoute>
+                <Dashboard />
+              </ProtectedRoute>
+            } 
+          />
+          
+          {/* Redirect to home for unknown routes */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
-      </Layout>
-    </Router>
+      </Router>
+    </AuthProvider>
   );
 }
 
