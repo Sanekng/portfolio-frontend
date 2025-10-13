@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './contexts/AuthContext';
 import { Layout } from './components/ui/Layout';
 import { Home } from './pages/Home';
 import { Projects } from './pages/Projects';
@@ -9,35 +8,36 @@ import { Contact } from './pages/Contact';
 import { Login } from './pages/admin/Login';
 import { Dashboard } from './pages/admin/Dashboard';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import { AuthProvider } from './contexts/AuthContext';
 
 function App() {
   return (
     <AuthProvider>
       <Router>
         <Routes>
-          {/* Public routes */}
+          {/* Public routes with Layout */}
           <Route path="/" element={<Layout><Home /></Layout>} />
           <Route path="/projects" element={<Layout><Projects /></Layout>} />
           <Route path="/blog" element={<Layout><Blog /></Layout>} />
           <Route path="/about" element={<Layout><About /></Layout>} />
           <Route path="/contact" element={<Layout><Contact /></Layout>} />
-          
-          {/* Admin routes */}
+
+          {/* Admin routes WITHOUT Layout */}
           <Route path="/admin/login" element={<Login />} />
-          <Route 
-            path="/admin/dashboard" 
+          <Route
+            path="/admin/dashboard"
             element={
               <ProtectedRoute>
                 <Dashboard />
               </ProtectedRoute>
-            } 
+            }
           />
-          
-          {/* Redirect admin root to dashboard */}
-          <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
-          
-          {/* Redirect to home for unknown routes */}
-          <Route path="*" element={<Navigate to="/" replace />} />
+
+          {/* Redirect admin root to login */}
+          <Route path="/admin" element={<Navigate to="/admin/login" replace />} />
+
+          {/* Catch all route - IMPORTANT for SPA */}
+          <Route path="*" element={<Layout><Home /></Layout>} />
         </Routes>
       </Router>
     </AuthProvider>

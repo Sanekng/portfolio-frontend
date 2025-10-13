@@ -2,8 +2,7 @@ import axios from 'axios';
 import { type BlogPost, type BlogListResponse} from '../types/blog.types'
 import { type Project, type ProjectListResponse } from '../types/project.types';
 
-// Use environment variable with fallback for both development and production
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://portfolio-backend-coral-one.vercel.app/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://portfolio-backend-gray-phi.vercel.app/api';
 
 console.log('API Base URL:', API_BASE_URL); // Debug log
 
@@ -84,3 +83,15 @@ export const contactService = {
 
 export const healthCheck = (): Promise<{ success: boolean; message: string }> =>
   api.get('/health').then(response => response.data);
+
+
+export const authService = {
+  login: (data: any) =>
+    api.post('/auth/login', data).then(response => response.data),
+  
+  register: (data: any) =>
+    api.post('/auth/register', data).then(response => response.data),
+  
+  getMe: () =>
+    api.get('/auth/me').then(response => response.data),
+};
