@@ -1,15 +1,15 @@
 import axios from 'axios';
-import { type BlogPost, type BlogListResponse} from '../types/blog.types';
-import { type Project, type ProjectListResponse } from '../types/project.types'
+import { type BlogPost, type BlogListResponse} from '../types/blog.types'
+import { type Project, type ProjectListResponse } from '../types/project.types';
 
-// Use environment variable with fallback for development
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:3001/api';
+// Use environment variable with fallback for both development and production
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://portfolio-backend-coral-one.vercel.app/api';
 
 console.log('API Base URL:', API_BASE_URL); // Debug log
 
 export const api = axios.create({
   baseURL: API_BASE_URL,
-  timeout: 15000, // Increased timeout
+  timeout: 15000,
   headers: {
     'Content-Type': 'application/json',
   },
@@ -18,7 +18,7 @@ export const api = axios.create({
 // Add request interceptor for debugging
 api.interceptors.request.use(
   (config) => {
-    console.log(`Making ${config.method?.toUpperCase()} request to: ${config.url}`);
+    console.log(`Making ${config.method?.toUpperCase()} request to: ${config.baseURL}${config.url}`);
     return config;
   },
   (error) => {
@@ -34,14 +34,12 @@ api.interceptors.response.use(
     console.error('API Error:', error);
     
     if (error.code === 'ECONNABORTED') {
-      console.error('Request timeout - Backend might not be running');
+      console.error('Request timeout');
     }
     
     if (error.response) {
-      // Server responded with error status
       console.error('Response error:', error.response.status, error.response.data);
     } else if (error.request) {
-      // Request was made but no response received
       console.error('No response received - Check if backend is running');
     }
     
@@ -49,6 +47,7 @@ api.interceptors.response.use(
   }
 );
 
+// Your existing service functions remain the same...
 export const blogService = {
   getPosts: (page = 1, limit = 10): Promise<BlogListResponse> => 
     api.get(`/blog?page=${page}&limit=${limit}`).then(response => response.data),
@@ -83,6 +82,5 @@ export const contactService = {
     api.post('/contact', data).then(response => response.data),
 };
 
-// Health check with better error handling
 export const healthCheck = (): Promise<{ success: boolean; message: string }> =>
   api.get('/health').then(response => response.data);
