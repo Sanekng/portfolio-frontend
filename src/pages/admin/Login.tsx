@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; // Add this import
 import { useAuth } from '../../contexts/AuthContext';
 import { Button } from '../../components/ui/Button';
 import { Card } from '../../components/ui/Card';
@@ -14,6 +15,7 @@ export const Login: React.FC = () => {
   const [error, setError] = useState('');
 
   const { login, register } = useAuth();
+  const navigate = useNavigate(); // Add this hook
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormData({
@@ -33,7 +35,8 @@ export const Login: React.FC = () => {
       } else {
         await register(formData);
       }
-      // Redirect will be handled by protected route
+      // ADD THIS: Redirect after successful login/register
+      navigate('/admin/dashboard');
     } catch (err: any) {
       setError(err.response?.data?.message || 'An error occurred');
     } finally {

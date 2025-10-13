@@ -33,6 +33,9 @@ function App() {
             } 
           />
           
+          {/* Redirect admin root to dashboard */}
+          <Route path="/admin" element={<Navigate to="/admin/dashboard" replace />} />
+          
           {/* Redirect to home for unknown routes */}
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>

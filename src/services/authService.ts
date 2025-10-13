@@ -1,11 +1,13 @@
 import { api } from './api';
-import { type AuthResponse, type LoginData, type RegisterData } from '../types/auth.types';
+import {type AuthResponse, type LoginData, type RegisterData } from '../types/auth.types';
 
 export const authService = {
   login: async (data: LoginData): Promise<AuthResponse> => {
     const response = await api.post('/auth/login', data);
     if (response.data.success) {
       localStorage.setItem('token', response.data.data.token);
+      // Also store the token in the axios default headers
+      api.defaults.headers.common['Authorization'] = `Bearer ${response.data.data.token}`;
     }
     return response.data;
   },
@@ -14,22 +16,28 @@ export const authService = {
     const response = await api.post('/auth/register', data);
     if (response.data.success) {
       localStorage.setItem('token', response.data.data.token);
+      api.defaults.headers.common['Authorization'] = `Bearer ${response.data.data.token}`;
     }
     return response.data;
   },
 
   getMe: async (): Promise<{ success: boolean; data: { user: any } }> => {
     const token = localStorage.getItem('token');
-    const response = await api.get('/auth/me', {
-      headers: {
-        Authorization: `Bearer ${token}`
-      }
-    });
+    
+    if (!token) {
+      throw new Error('No token found');
+    }
+
+    // Set the authorization header
+    api.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+    
+    const response = await api.get('/auth/me');
     return response.data;
   },
 
   logout: (): void => {
     localStorage.removeItem('token');
+    delete api.defaults.headers.common['Authorization'];
   },
 
   getToken: (): string | null => {

@@ -19,6 +19,6 @@ export const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ children }) => {
       </div>
     );
   }
-
+  
   return isAuthenticated ? <>{children}</> : <Navigate to="/admin/login" replace />;
 };
