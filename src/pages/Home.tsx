@@ -25,18 +25,6 @@ export const Home: React.FC = () => {
         setServerStatus('offline');
         setError('Unable to connect to backend server');
         console.error('Error fetching data:', error);
-        
-        // Try to get sample data as fallback
-        try {
-          const sampleResponse = await fetch('http://localhost:3001/api/sample/projects');
-          if (sampleResponse.ok) {
-            const sampleData = await sampleResponse.json();
-            setFeaturedProjects(sampleData.data);
-            setError('Using sample data - Backend connection issue');
-          }
-        } catch (sampleError) {
-          console.error('Sample data also failed:', sampleError);
-        }
       } finally {
         setLoading(false);
       }
@@ -51,11 +39,10 @@ export const Home: React.FC = () => {
       <section className="text-center py-16">
         <h1 className="text-5xl font-bold text-gray-900 mb-6">
           Hi, I'm{' '}
-          <span className="text-primary-600">Your Name</span>
+          <span className="text-primary-600">Oleksandr</span>
         </h1>
         <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-          A passionate developer building amazing web experiences with modern technologies.
-          Welcome to my digital portfolio.
+          Motivated fullstack developer, who is always exploring various possibilities in problem solving. 
         </p>
         <div className="flex justify-center space-x-4">
           <Button as="a" href="/projects">
@@ -67,7 +54,7 @@ export const Home: React.FC = () => {
         </div>
       </section>
 
-      {/* Server Status */}
+      {/* Server Status
       <div className={`text-center mb-12 p-4 rounded-lg ${
         serverStatus === 'online' ? 'bg-green-100 text-green-800' :
         serverStatus === 'offline' ? 'bg-red-100 text-red-800' :
@@ -83,7 +70,7 @@ export const Home: React.FC = () => {
             {error}
           </div>
         )}
-      </div>
+      </div> */}
 
       {/* Featured Projects */}
       <section className="mb-16">

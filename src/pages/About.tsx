@@ -15,20 +15,26 @@ export const About: React.FC = () => {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Main Content */}
         <div className="lg:col-span-2">
-          <div className="card p-8 mb-8">
+          <div className="card relative p-8 mb-8">
             <h2 className="text-2xl font-bold text-gray-900 mb-4">My Journey</h2>
+            <p className="text-gray-400 mb-1">“Intellectual growth should commence at birth and cease only at death.”</p>
+            <p className="text-gray-400 mb-4"> – Albert Einstein</p>
             <p className="text-gray-600 mb-4">
-              I'm a passionate full-stack developer with a love for creating efficient, 
-              scalable, and user-friendly applications. My journey in tech started...
+              I’m a motivated and curious developer who sees technology as a bridge between ideas and real-world impact. My passion lies in solving problems through consistency, creativity, and innovation. Currently, I’m developing as a backend programmer with a strong focus on scalability and efficiency, while continuously growing toward becoming a full-stack developer and, one day, a team leader.
             </p>
             <p className="text-gray-600 mb-4">
-              I enjoy solving complex problems and continuously learning new technologies 
-              to stay at the forefront of web development.
+              Throughout my studies at the University of Donja Gorica, I’ve had the opportunity to work on projects that pushed me to think critically and collaborate effectively. One of my proudest achievements is AI4S3, a team project where we built a speech transcription and emotion analysis tool using NLP techniques. The project stood out for its originality and earned recognition and an award at our university.
             </p>
-            <p className="text-gray-600">
-              When I'm not coding, you can find me exploring new frameworks, contributing 
-              to open-source projects, or sharing knowledge with the developer community.
+            <p className="text-gray-600 mb-4">
+              Later, as part of the AdVista team, I helped present a mobile application concept to over 30 investors. My role involved pitching and supporting the presentation in multiple languages, which contributed to securing interest and positive feedback from investors. That experience helped me combine my technical skills with communication and presentation abilities — a balance I continue to build upon.
             </p>
+            <p className="text-gray-600 mb-4">
+              Experimenting with new technologies and applying what I learn keeps my mind sharp and my creativity flowing. I’m deeply interested in AI, backend architecture, and product design — but I also value teamwork, community, and the human side of technology.
+            </p>
+            <p className="text-gray-600 mb-4">
+              When I’m not coding, you’ll probably find me out socializing, exploring new places, or cycling through Montenegro’s scenic routes. I believe that meaningful work starts with curiosity — and I’m always ready for the next challenge that keeps me learning, building, and growing.
+            </p>
+            
           </div>
         </div>
 

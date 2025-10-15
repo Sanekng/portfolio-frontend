@@ -16,8 +16,7 @@ export const Projects: React.FC = () => {
       <div className="text-center mb-12">
         <h1 className="text-4xl font-bold text-gray-900 mb-4">My Projects</h1>
         <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-          A collection of projects I've worked on, showcasing my skills and experience 
-          with various technologies and frameworks.
+          Currently in development...
         </p>
       </div>
 
@@ -60,7 +59,7 @@ export const Projects: React.FC = () => {
           ))}
           {projects.length === 0 && (
             <div className="col-span-full text-center py-12">
-              <div className="text-gray-500 text-lg mb-2">No projects found</div>
+              <div className="text-gray-500 text-lg mb-2">Currently in development</div>
               <div className="text-gray-400">
                 {selectedCategory !== 'all' 
                   ? `No projects in the ${selectedCategory} category.`
